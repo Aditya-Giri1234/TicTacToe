@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/friend_pop_back"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="15dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:gravity="center"
+            android:text="Enter Player Name"
+            android:textColor="#DBDBDB"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp">
+
+            <EditText
+                android:id="@+id/player1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#0D0F17"
+                android:drawableLeft="@drawable/cross"
+                android:drawablePadding="20dp"
+                android:ems="10"
+                android:hint="Player One"
+                android:inputType="textPersonName"
+                android:padding="10dp"
+                android:textColor="@color/white"
+                android:textColorHint="#767474"
+                android:textSize="24sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/player2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#0D0F17"
+                android:drawableLeft="@drawable/zero"
+                android:drawablePadding="20dp"
+                android:ems="10"
+                android:hint="Player Two"
+                android:inputType="textPersonName"
+                android:padding="10dp"
+                android:textColor="@color/white"
+                android:textColorHint="#767474"
+                android:textSize="24sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/friend_pop_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/friend_pop_button"
+            android:text="Start Game"
+            android:textAllCaps="false"
+            android:textColor="#D2CFCF"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</LinearLayout>
