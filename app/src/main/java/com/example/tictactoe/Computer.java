@@ -27,7 +27,7 @@ public class Computer extends AppCompatActivity {
 
     TextView secondPlayer;
 
-    int empty[]=new int[]{2,2,2,2,2,2,2,2,2};
+    int gameState[]=new int[]{2,2,2,2,2,2,2,2,2};
 
 
     int[][] Winpos = new int[][]{{0,1,2},{3,4,5},{6,7,8},
@@ -133,14 +133,14 @@ public class Computer extends AppCompatActivity {
         view.setImageResource(R.drawable.cross);
         view.setVisibility(View.VISIBLE);
 
-        empty[i*3+j]=1;
-        if(space(empty)<=5)
+        gameState[i*3+j]=1;
+        if(space(gameState)<=5)
         winCheck();
 
 
         //First Time
 
-        if(space(empty)==8) {
+        if(space(gameState)==8) {
            first();
         }
 
@@ -149,7 +149,7 @@ public class Computer extends AppCompatActivity {
 
             bestMove();
 
-            if(space(empty)<=5)
+            if(space(gameState)<=5)
             winCheck();
 
         }
@@ -158,11 +158,11 @@ public class Computer extends AppCompatActivity {
     public void bestMove(){
         int bestScore = Integer.MIN_VALUE;
         int move=-1;
-        for(int i =0;i<empty.length;i++){
-            if(empty[i]==0){
-                empty[i] =1 ;
+        for(int i =0;i<gameState.length;i++){
+            if(gameState[i]==0){
+                gameState[i] =1 ;
                 int score = minmax(0,computer);
-                empty[i] = 0;
+                gameState[i] = 0;
                 if(score>bestScore){
                     bestScore = score;
                    move=i;
@@ -171,7 +171,7 @@ public class Computer extends AppCompatActivity {
             }
         }
         place(move+1);
-        empty[move+1]=0;
+        gameState[move+1]=0;
     }
     private  int minmax( int depth,String player) {
         int result = checkWin(depth);
@@ -179,18 +179,18 @@ public class Computer extends AppCompatActivity {
             return result;
         }
 
-        if(space(empty)==0) return 0;
+        if(space(gameState)==0) return 0;
 
 
         int max=Integer.MIN_VALUE;
         int min=Integer.MAX_VALUE;
 
                 if (player.equalsIgnoreCase(computer)) {
-                    for (int i = 0; i < empty.length; i++) {
-                        if (empty[i] == 0) {
-                            empty[i] = 1;
+                    for (int i = 0; i < gameState.length; i++) {
+                        if (gameState[i] == 0) {
+                            gameState[i] = 1;
                             int curentScore = minmax(depth + 1, human);
-                            empty[i] = 0;
+                            gameState[i] = 0;
 
                             max = Math.max(max, curentScore);
 
@@ -200,10 +200,10 @@ public class Computer extends AppCompatActivity {
                 }
                else {
                   for(int i=0;i<9;i++) {
-                      if(empty[i]==0) {
-                          empty[i] = 1;
+                      if(gameState[i]==0) {
+                          gameState[i] = 1;
                           int currentScore = minmax(depth + 1, computer);
-                          empty[i]=0;
+                          gameState[i]=0;
                           min = Math.min(min, currentScore);
                       }
                   }
@@ -268,9 +268,9 @@ public class Computer extends AppCompatActivity {
     public int checkWin(int depth){
         for(int i=0;i<Winpos.length;i++){
 
-            if( empty[Winpos[i][0]]!=2 && empty[Winpos[i][0]]==empty[Winpos[i][1]] &&  empty[Winpos[i][1]] == empty[Winpos[i][2]]){
+            if( gameState[Winpos[i][0]]!=2 && gameState[Winpos[i][0]]==gameState[Winpos[i][1]] &&  gameState[Winpos[i][1]] == gameState[Winpos[i][2]]){
 
-                if(empty[Winpos[i][0]]==1) {
+                if(gameState[Winpos[i][0]]==1) {
                     return 10-depth;
                 }else{
                     return depth-10;
@@ -287,9 +287,9 @@ public class Computer extends AppCompatActivity {
     public int win(){
         for(int i=0;i<Winpos.length;i++){
 
-            if( empty[Winpos[i][0]]!=2 && empty[Winpos[i][0]]==empty[Winpos[i][1]] &&  empty[Winpos[i][1]] == empty[Winpos[i][2]]){
+            if( gameState[Winpos[i][0]]!=2 && gameState[Winpos[i][0]]==gameState[Winpos[i][1]] &&  gameState[Winpos[i][1]] == gameState[Winpos[i][2]]){
 
-                if(empty[Winpos[i][0]]==1) {
+                if(gameState[Winpos[i][0]]==1) {
                     return 1;
                 }else{
                     return -1;
@@ -308,7 +308,7 @@ public class Computer extends AppCompatActivity {
     public void first(){
         int value=new Random().nextInt(8);
 
-        while(value==position(empty)){
+        while(value==position(gameState)){
             value=new Random().nextInt(8);
 
         }
@@ -320,11 +320,11 @@ public class Computer extends AppCompatActivity {
 
     }
 
-    public int position(int empty[]){
+    public int position(int gameState[]){
         int pos=-1;
         for(int i=0;i<9;i++){
 
-                if(empty[i]==1) {
+                if(gameState[i]==1) {
                     pos = i;
                     break;
                 }
