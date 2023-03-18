@@ -25,7 +25,6 @@ public class Computer extends AppCompatActivity {
     LinearLayout first,second,one,two,three,fourth,fifth,six,seven,eight,nine;
     ImageView oneImage,twoImage,threeImage,fourthImage,fifthImage,sixImage,sevenImage,eightImage,nineImage;
 
-    Cell computerMove;
     TextView secondPlayer;
 
     int empty[]=new int[]{2,2,2,2,2,2,2,2,2};
@@ -149,8 +148,6 @@ public class Computer extends AppCompatActivity {
             // now choose best move for computer
 
             bestMove();
-            System.out.println(computerMove==null);
-            place(computerMove.row, computerMove.col);
 
             if(space(empty)<=5)
             winCheck();
@@ -160,6 +157,7 @@ public class Computer extends AppCompatActivity {
     }
     public void bestMove(){
         int bestScore = Integer.MIN_VALUE;
+        int move=-1;
         for(int i =0;i<empty.length;i++){
             if(empty[i]==0){
                 empty[i] =1 ;
@@ -167,11 +165,13 @@ public class Computer extends AppCompatActivity {
                 empty[i] = 0;
                 if(score>bestScore){
                     bestScore = score;
-                    computerMove=new Cell(i/3,i%3);
+                   move=i;
                 }
 
             }
         }
+        place(move+1);
+        empty[move+1]=0;
     }
     private  int minmax( int depth,String player) {
         int result = checkWin(depth);
@@ -313,7 +313,7 @@ public class Computer extends AppCompatActivity {
 
         }
 
-        place(value/3,value%3);
+        place(value+1);
         Toast tost=Toast.makeText(getApplicationContext(),Integer.toString(value),Toast.LENGTH_SHORT);
         tost.setGravity(Gravity.CENTER,0,0);
         tost.show();
@@ -337,16 +337,15 @@ public class Computer extends AppCompatActivity {
         int sum=0;
         for(int i=0;i<9;i++)
         {
-            if(arr[i]==0)
+            if(arr[i]==2)
                 sum++;
         }
         return sum;
     }
 
-    public  void place(int i,int j){
-        Toast.makeText(this, "i -> "+i+" , j-> "+j, Toast.LENGTH_SHORT).show();
-        empty[i*3+j]=1;
-        switch (i*3+j+1){
+    public  void place(int i){
+
+        switch (i){
             case 1:
                 oneImage.setImageResource(R.drawable.zero);
                 oneImage.setVisibility(View.VISIBLE);
@@ -394,13 +393,5 @@ public class Computer extends AppCompatActivity {
     }
 }
 
-class Cell{
-    public int row;
-    public int col;
 
-    public Cell(int row,int col){
-        this.row=row;
-        this.col=col;
-    }
-}
 
