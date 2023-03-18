@@ -165,13 +165,13 @@ public class Computer extends AppCompatActivity {
                 gameState[i] = 2;
                 if(score>bestScore){
                     bestScore = score;
-                   move=i;
+                    move=i;
                 }
             }
         }
         System.out.println(move);
         place(move+1);
-        gameState[move+1]=0;
+        gameState[move]=0;
     }
     private  int minmax( int depth,int player) {
         int result = checkWin(depth);
@@ -191,15 +191,13 @@ public class Computer extends AppCompatActivity {
                             gameState[i] = player;
                             int curentScore = minmax(depth + 1, 1);
                             gameState[i] = 2;
-
                             max = Math.max(max, curentScore);
-
                         }
                     }
                     return max;
                 }
                else {
-                  for(int i=0;i<9;i++) {
+                  for(int i=0;i<gameState.length;i++) {
                       if(gameState[i]==2) {
                           gameState[i] = player;
                           int currentScore = minmax(depth + 1, 0);
@@ -270,7 +268,7 @@ public class Computer extends AppCompatActivity {
 
             if( gameState[Winpos[i][0]]!=2 && gameState[Winpos[i][0]]==gameState[Winpos[i][1]] &&  gameState[Winpos[i][1]] == gameState[Winpos[i][2]]){
 
-                if(gameState[Winpos[i][0]]==1) {
+                if(gameState[Winpos[i][0]]==0) {
                     return 10-depth;
                 }else{
                     return depth-10;
@@ -314,6 +312,7 @@ public class Computer extends AppCompatActivity {
         }
 
         place(value+1);
+        gameState[value]=0;
         Toast tost=Toast.makeText(getApplicationContext(),Integer.toString(value),Toast.LENGTH_SHORT);
         tost.setGravity(Gravity.CENTER,0,0);
         tost.show();
