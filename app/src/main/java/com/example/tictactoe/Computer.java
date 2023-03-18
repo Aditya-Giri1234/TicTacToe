@@ -160,9 +160,9 @@ public class Computer extends AppCompatActivity {
         int move=-1;
         for(int i =0;i<gameState.length;i++){
             if(gameState[i]==0){
-                gameState[i] =1 ;
+                gameState[i] =0 ;
                 int score = minmax(0,0);
-                gameState[i] = 0;
+                gameState[i] = 2;
                 if(score>bestScore){
                     bestScore = score;
                    move=i;
@@ -170,6 +170,7 @@ public class Computer extends AppCompatActivity {
 
             }
         }
+        System.out.println(move);
         place(move+1);
         gameState[move+1]=0;
     }
@@ -187,10 +188,10 @@ public class Computer extends AppCompatActivity {
 
                 if (player==0) {
                     for (int i = 0; i < gameState.length; i++) {
-                        if (gameState[i] == 0) {
+                        if (gameState[i] == 2) {
                             gameState[i] = player;
                             int curentScore = minmax(depth + 1, 1);
-                            gameState[i] = 0;
+                            gameState[i] = 2;
 
                             max = Math.max(max, curentScore);
 
@@ -200,10 +201,10 @@ public class Computer extends AppCompatActivity {
                 }
                else {
                   for(int i=0;i<9;i++) {
-                      if(gameState[i]==0) {
+                      if(gameState[i]==2) {
                           gameState[i] = player;
                           int currentScore = minmax(depth + 1, 0);
-                          gameState[i]=0;
+                          gameState[i]=2;
                           min = Math.min(min, currentScore);
                       }
                   }
@@ -241,7 +242,7 @@ public class Computer extends AppCompatActivity {
             dialog.show();
         }
 
-        if(win()==0){
+        if(space(gameState)==0){
             afterMatchText.setText("Game is tie !");
             dialog.show();
         }
