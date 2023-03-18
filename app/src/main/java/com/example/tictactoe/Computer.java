@@ -24,11 +24,16 @@ public class Computer extends AppCompatActivity {
     public static final String computer="COMPUTER";
     LinearLayout first,second,one,two,three,fourth,fifth,six,seven,eight,nine;
     ImageView oneImage,twoImage,threeImage,fourthImage,fifthImage,sixImage,sevenImage,eightImage,nineImage;
-     int [][] board=new int[3][3];
+
     Cell computerMove;
     TextView secondPlayer;
 
-    int empty[]=new int[9];
+    int empty[]=new int[]{2,2,2,2,2,2,2,2,2};
+
+
+    int[][] Winpos = new int[][]{{0,1,2},{3,4,5},{6,7,8},
+            {0,4,8},{2,4,6},{0,3,6},
+            {1,4,7},{2,5,8}};
 
 
 
@@ -128,7 +133,7 @@ public class Computer extends AppCompatActivity {
 
         view.setImageResource(R.drawable.cross);
         view.setVisibility(View.VISIBLE);
-        board[i][j]=1;
+
         empty[i*3+j]=1;
         if(space(empty)<=5)
         winCheck();
@@ -157,7 +162,7 @@ public class Computer extends AppCompatActivity {
         int bestScore = Integer.MIN_VALUE;
         for(int i =0;i<empty.length;i++){
             if(empty[i]==0){
-                empty[i] =-1 ;
+                empty[i] =1 ;
                 int score = minmax(0,computer);
                 empty[i] = 0;
                 if(score>bestScore){
@@ -169,9 +174,12 @@ public class Computer extends AppCompatActivity {
         }
     }
     private  int minmax( int depth,String player) {
-       if(win(-1))  return (10-depth);
-       if(win(+1)) return (-10+depth);
-       if(space(empty)==0) return 0;
+        int result = checkWin(depth);
+        if(result!=0){
+            return result;
+        }
+
+        if(space(empty)==0) return 0;
 
 
         int max=Integer.MIN_VALUE;
@@ -205,39 +213,9 @@ public class Computer extends AppCompatActivity {
 
     }
 
-    private ArrayList<Integer> findSpace(int[] empty) {
-        ArrayList<Integer> temp=new ArrayList<>();
-        for(int i=0;i< 9;i++){
-            if(empty[i]==0){
-                temp.add(i);
-            }
-        }
 
-        return  temp;
-    }
 
-    public  boolean win(int i){
 
-        if(board[0][0]==board[0][1]&&board[0][1]==board[0][2]&&board[0][0]==i)
-            return true;
-        if(board[1][0]==board[1][1]&&board[1][1]==board[1][2]&&board[1][0]==i)
-            return true;
-        if(board[2][0]==board[2][1]&&board[2][1]==board[2][2]&&board[2][0]==i)
-            return true;
-        if(board[0][0]==board[1][0]&&board[1][0]==board[2][0]&&board[0][0]==i)
-            return true;
-        if(board[0][1]==board[1][1]&&board[1][1]==board[2][1]&&board[0][1]==i)
-            return true;
-        if(board[0][2]==board[1][2]&&board[1][2]==board[2][2]&&board[0][2]==i)
-            return true;
-        if(board[0][0]==board[1][1]&&board[1][1]==board[2][2]&&board[0][0]==i)
-            return true;
-        if(board[0][2]==board[1][1]&&board[1][1]==board[2][0]&&board[0][2]==i)
-            return true;
-
-        return false;
-
-    }
 
 
 
@@ -251,19 +229,19 @@ public class Computer extends AppCompatActivity {
         TextView afterMatchText=dialog.findViewById(R.id.afterMatchText);
         Button restart=dialog.findViewById(R.id.restart);
         Button exit=dialog.findViewById(R.id.exit);
-        if(win(1)){
+        if(win()==1){
 
             afterMatchText.setText("Hooray , Human won the game !");
             dialog.show();
 
         }
 
-        if(win(-1)){
+        if(win()==-1){
             afterMatchText.setText("Hooray , Computer won the game !");
             dialog.show();
         }
 
-        if(space(empty)==0){
+        if(win()==0){
             afterMatchText.setText("Game is tie !");
             dialog.show();
         }
@@ -287,12 +265,50 @@ public class Computer extends AppCompatActivity {
 
     }
 
+    public int checkWin(int depth){
+        for(int i=0;i<Winpos.length;i++){
+
+            if( empty[Winpos[i][0]]!=2 && empty[Winpos[i][0]]==empty[Winpos[i][1]] &&  empty[Winpos[i][1]] == empty[Winpos[i][2]]){
+
+                if(empty[Winpos[i][0]]==1) {
+                    return 10-depth;
+                }else{
+                    return depth-10;
+                }
+
+            }
+
+
+
+        }
+        return 0;
+    }
+
+    public int win(){
+        for(int i=0;i<Winpos.length;i++){
+
+            if( empty[Winpos[i][0]]!=2 && empty[Winpos[i][0]]==empty[Winpos[i][1]] &&  empty[Winpos[i][1]] == empty[Winpos[i][2]]){
+
+                if(empty[Winpos[i][0]]==1) {
+                    return 1;
+                }else{
+                    return -1;
+                }
+
+            }
+
+
+
+        }
+        return 0;
+    }
+
 
 
     public void first(){
         int value=new Random().nextInt(8);
 
-        while(value==position(board)){
+        while(value==position(empty)){
             value=new Random().nextInt(8);
 
         }
@@ -304,17 +320,15 @@ public class Computer extends AppCompatActivity {
 
     }
 
-    public int position(int board[][]){
+    public int position(int empty[]){
         int pos=-1;
-        for(int i=0;i<3;i++){
-            for(int j=0;j<3;j++){
-                if(board[i][j]==1) {
-                    pos = (i * 3 + j);
+        for(int i=0;i<9;i++){
+
+                if(empty[i]==1) {
+                    pos = i;
                     break;
                 }
-            }
-            if(pos!=-1)
-                break;
+
         }
         return pos;
     }
@@ -331,7 +345,6 @@ public class Computer extends AppCompatActivity {
 
     public  void place(int i,int j){
         Toast.makeText(this, "i -> "+i+" , j-> "+j, Toast.LENGTH_SHORT).show();
-        board[i][j]=-1;
         empty[i*3+j]=1;
         switch (i*3+j+1){
             case 1:
