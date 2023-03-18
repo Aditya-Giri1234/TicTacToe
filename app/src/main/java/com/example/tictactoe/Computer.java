@@ -155,8 +155,8 @@ public class Computer extends AppCompatActivity {
     }
 
     private  int minmax( int depth,String player) {
-       if(computerWon())  return 1;
-       if(humanWon()) return -1;
+       if(computerWon())  return 10;
+       if(humanWon()) return -10;
        if(space(empty)==0) return 0;
 
 //        System.out.println(empty);
@@ -179,6 +179,11 @@ public class Computer extends AppCompatActivity {
                         if (depth == 0)
                             computerMove = cell;
                     }
+                    if(curentScore<0){
+                        if(depth==0){
+                            computerMove=cell;
+                        }
+                    }
                     if (curentScore == 1) {
                         board[cell.row][cell.col] = 0;
                         empty[cell.row * 3 + cell.col] = 0;
@@ -188,7 +193,7 @@ public class Computer extends AppCompatActivity {
                 } else {
                     board[cell.row][cell.col] = 1;
                     empty[cell.row * 3 + cell.col] = 1;
-                    int currentScore = minmax(depth + 1,computer);
+                    int currentScore = minmax(depth + 1, computer);
                     min = Math.min(min, currentScore);
 
                     if (currentScore == -1) {
@@ -203,7 +208,7 @@ public class Computer extends AppCompatActivity {
             }
         }
 
-        return player.equals(computer)?max:min;
+        return player.equals(computer)?(max-depth):(min+depth);
 
 
     }
