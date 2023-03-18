@@ -161,7 +161,7 @@ public class Computer extends AppCompatActivity {
         for(int i =0;i<gameState.length;i++){
             if(gameState[i]==0){
                 gameState[i] =1 ;
-                int score = minmax(0,computer);
+                int score = minmax(0,0);
                 gameState[i] = 0;
                 if(score>bestScore){
                     bestScore = score;
@@ -173,7 +173,7 @@ public class Computer extends AppCompatActivity {
         place(move+1);
         gameState[move+1]=0;
     }
-    private  int minmax( int depth,String player) {
+    private  int minmax( int depth,int player) {
         int result = checkWin(depth);
         if(result!=0){
             return result;
@@ -185,11 +185,11 @@ public class Computer extends AppCompatActivity {
         int max=Integer.MIN_VALUE;
         int min=Integer.MAX_VALUE;
 
-                if (player.equalsIgnoreCase(computer)) {
+                if (player==0) {
                     for (int i = 0; i < gameState.length; i++) {
                         if (gameState[i] == 0) {
-                            gameState[i] = 1;
-                            int curentScore = minmax(depth + 1, human);
+                            gameState[i] = player;
+                            int curentScore = minmax(depth + 1, 1);
                             gameState[i] = 0;
 
                             max = Math.max(max, curentScore);
@@ -201,8 +201,8 @@ public class Computer extends AppCompatActivity {
                else {
                   for(int i=0;i<9;i++) {
                       if(gameState[i]==0) {
-                          gameState[i] = 1;
-                          int currentScore = minmax(depth + 1, computer);
+                          gameState[i] = player;
+                          int currentScore = minmax(depth + 1, 0);
                           gameState[i]=0;
                           min = Math.min(min, currentScore);
                       }
