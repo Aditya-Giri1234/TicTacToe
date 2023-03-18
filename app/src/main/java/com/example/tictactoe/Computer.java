@@ -143,7 +143,7 @@ public class Computer extends AppCompatActivity {
          else {
             // now choose best move for computer
 
-            minmax(0,computer);
+            bestMove();
             System.out.println(computerMove==null);
             place(computerMove.row, computerMove.col);
 
@@ -153,63 +153,55 @@ public class Computer extends AppCompatActivity {
         }
         
     }
+    public void bestMove(){
+        int bestScore = Integer.MIN_VALUE;
+        for(int i =0;i<empty.length;i++){
+            if(empty[i]==0){
+                empty[i] =-1 ;
+                int score = minmax(0,computer);
+                empty[i] = 0;
+                if(score>bestScore){
+                    bestScore = score;
+                    computerMove=new Cell(i/3,i%3);
+                }
 
+            }
+        }
+    }
     private  int minmax( int depth,String player) {
-       if(computerWon())  return 10;
-       if(humanWon()) return -10;
+       if(win(-1))  return (10-depth);
+       if(win(+1)) return (-10+depth);
        if(space(empty)==0) return 0;
 
-//        System.out.println(empty);
 
         int max=Integer.MIN_VALUE;
         int min=Integer.MAX_VALUE;
 
-        for(int i=0;i<empty.length;i++){
-            if(empty[i]==0) {
-                Cell cell = new Cell(i / 3, i% 3);
-
                 if (player.equalsIgnoreCase(computer)) {
-                    board[cell.row][cell.col] = -1;
-                    empty[cell.row * 3 + cell.col] = 1;
-                    int curentScore = minmax(depth + 1, human);
+                    for (int i = 0; i < empty.length; i++) {
+                        if (empty[i] == 0) {
+                            empty[i] = 1;
+                            int curentScore = minmax(depth + 1, human);
+                            empty[i] = 0;
 
-                    max = Math.max(max, curentScore);
-                    if (curentScore >= 0) {
+                            max = Math.max(max, curentScore);
 
-                        if (depth == 0)
-                            computerMove = cell;
-                    }
-                    if(curentScore<0){
-                        if(depth==0){
-                            computerMove=cell;
                         }
                     }
-                    if (curentScore == 1) {
-                        board[cell.row][cell.col] = 0;
-                        empty[cell.row * 3 + cell.col] = 0;
-                        break;
-                    }
-
-                } else {
-                    board[cell.row][cell.col] = 1;
-                    empty[cell.row * 3 + cell.col] = 1;
-                    int currentScore = minmax(depth + 1, computer);
-                    min = Math.min(min, currentScore);
-
-                    if (currentScore == -1) {
-                        board[cell.row][cell.col] = 0;
-                        empty[cell.row * 3 + cell.col] = 0;
-                        break;
-                    }
+                    return max;
                 }
+               else {
+                  for(int i=0;i<9;i++) {
+                      if(empty[i]==0) {
+                          empty[i] = 1;
+                          int currentScore = minmax(depth + 1, computer);
+                          empty[i]=0;
+                          min = Math.min(min, currentScore);
+                      }
+                  }
+                  return min;
 
-                board[cell.row][cell.col] = 0;
-                empty[cell.row * 3 + cell.col] = 0;
             }
-        }
-
-        return player.equals(computer)?(max-depth):(min+depth);
-
 
     }
 
@@ -224,51 +216,30 @@ public class Computer extends AppCompatActivity {
         return  temp;
     }
 
-    public  boolean computerWon(){
+    public  boolean win(int i){
 
-        if(board[0][0]==board[0][1]&&board[0][1]==board[0][2]&&board[0][0]==-1)
+        if(board[0][0]==board[0][1]&&board[0][1]==board[0][2]&&board[0][0]==i)
             return true;
-        if(board[1][0]==board[1][1]&&board[1][1]==board[1][2]&&board[1][0]==-1)
+        if(board[1][0]==board[1][1]&&board[1][1]==board[1][2]&&board[1][0]==i)
             return true;
-        if(board[2][0]==board[2][1]&&board[2][1]==board[2][2]&&board[2][0]==-1)
+        if(board[2][0]==board[2][1]&&board[2][1]==board[2][2]&&board[2][0]==i)
             return true;
-        if(board[0][0]==board[1][0]&&board[1][0]==board[2][0]&&board[0][0]==-1)
+        if(board[0][0]==board[1][0]&&board[1][0]==board[2][0]&&board[0][0]==i)
             return true;
-        if(board[0][1]==board[1][1]&&board[1][1]==board[2][1]&&board[0][1]==-1)
+        if(board[0][1]==board[1][1]&&board[1][1]==board[2][1]&&board[0][1]==i)
             return true;
-        if(board[0][2]==board[1][2]&&board[1][2]==board[2][2]&&board[0][2]==-1)
+        if(board[0][2]==board[1][2]&&board[1][2]==board[2][2]&&board[0][2]==i)
             return true;
-        if(board[0][0]==board[1][1]&&board[1][1]==board[2][2]&&board[0][0]==-1)
+        if(board[0][0]==board[1][1]&&board[1][1]==board[2][2]&&board[0][0]==i)
             return true;
-        if(board[0][2]==board[1][1]&&board[1][1]==board[2][0]&&board[0][2]==-1)
+        if(board[0][2]==board[1][1]&&board[1][1]==board[2][0]&&board[0][2]==i)
             return true;
 
         return false;
 
     }
 
-    public  boolean humanWon(){
 
-        if(board[0][0]==board[0][1]&&board[0][1]==board[0][2]&&board[0][0]==1)
-            return true;
-        if(board[1][0]==board[1][1]&&board[1][1]==board[1][2]&&board[1][0]==1)
-            return true;
-        if(board[2][0]==board[2][1]&&board[2][1]==board[2][2]&&board[2][0]==1)
-            return true;
-        if(board[0][0]==board[1][0]&&board[1][0]==board[2][0]&&board[0][0]==1)
-            return true;
-        if(board[0][1]==board[1][1]&&board[1][1]==board[2][1]&&board[0][1]==1)
-            return true;
-        if(board[0][2]==board[1][2]&&board[1][2]==board[2][2]&&board[0][2]==1)
-            return true;
-        if(board[0][0]==board[1][1]&&board[1][1]==board[2][2]&&board[0][0]==1)
-            return true;
-        if(board[0][2]==board[1][1]&&board[1][1]==board[2][0]&&board[0][2]==1)
-            return true;
-
-            return false;
-
-    }
 
     public void winCheck(){
 
@@ -280,14 +251,14 @@ public class Computer extends AppCompatActivity {
         TextView afterMatchText=dialog.findViewById(R.id.afterMatchText);
         Button restart=dialog.findViewById(R.id.restart);
         Button exit=dialog.findViewById(R.id.exit);
-        if(humanWon()){
+        if(win(1)){
 
             afterMatchText.setText("Hooray , Human won the game !");
             dialog.show();
 
         }
 
-        if(computerWon()){
+        if(win(-1)){
             afterMatchText.setText("Hooray , Computer won the game !");
             dialog.show();
         }
