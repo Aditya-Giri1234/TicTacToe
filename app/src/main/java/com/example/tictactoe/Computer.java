@@ -159,15 +159,14 @@ public class Computer extends AppCompatActivity {
         int bestScore = Integer.MIN_VALUE;
         int move=-1;
         for(int i =0;i<gameState.length;i++){
-            if(gameState[i]==0){
+            if(gameState[i]==2){
                 gameState[i] =0 ;
-                int score = minmax(0,0);
+                int score = minmax(0,1);
                 gameState[i] = 2;
                 if(score>bestScore){
                     bestScore = score;
                    move=i;
                 }
-
             }
         }
         System.out.println(move);
