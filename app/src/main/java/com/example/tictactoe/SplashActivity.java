@@ -46,7 +46,7 @@ toe.startAnimation(animationToe);
                    }
                },2000);
            }
-       },4000);
+       },2000);
 
 
     }

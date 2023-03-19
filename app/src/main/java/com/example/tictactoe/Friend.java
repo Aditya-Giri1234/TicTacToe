@@ -39,15 +39,19 @@ boolean firstMove=true;
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(player1.getText().equals("")){
+                if (player1.getText().length() == 0) {
                     player1.setError("Enter a name");
+                } else {
+                    if (player2.getText().length() == 0) {
+                        player2.setError("Enter a name");
+                    }
+                    else {
+
+                            firstPlayer.setText(player1.getText().toString());
+                            secondPlayer.setText(player2.getText().toString());
+                            choose.dismiss();
+                    }
                 }
-                if(player2.equals("")){
-                    player2.setError("Enter a name");
-                }
-                firstPlayer.setText(player1.getText());
-                secondPlayer.setText(player2.getText());
-                choose.dismiss();
             }
         });
         firstPlayer=findViewById(R.id.firstPlayer);
@@ -84,83 +88,101 @@ boolean firstMove=true;
         one.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                move(view.findViewById(R.id.oneImage),firstMove,first,second);
-                board[0][0]=1;
-                int win=check(board);
-                winCheck(win,firstMove,player1.getText().toString(),player2.getText().toString());
+                if (oneImage.getVisibility() != View.VISIBLE) {
+                    move(view.findViewById(R.id.oneImage), firstMove, first, second);
+                    board[0][0] = 1;
+                    int win = check(board);
+                    winCheck(win, firstMove, player1.getText().toString(), player2.getText().toString());
+                }
             }
         });
         two.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                move(view.findViewById(R.id.twoImage),firstMove,first,second);
-                board[0][1]=1;
-                int win=check(board);
-                winCheck(win,firstMove,player1.getText().toString(),player2.getText().toString());
+                if (twoImage.getVisibility() != View.VISIBLE) {
+                    move(view.findViewById(R.id.twoImage), firstMove, first, second);
+                    board[0][1] = 1;
+                    int win = check(board);
+                    winCheck(win, firstMove, player1.getText().toString(), player2.getText().toString());
+                }
             }
         });
         three.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                move(view.findViewById(R.id.threeImage),firstMove,first,second);
-                board[0][2]=1;
-                int win=check(board);
-                winCheck(win,firstMove,player1.getText().toString(),player2.getText().toString());
+                if (threeImage.getVisibility() != View.VISIBLE) {
+                    move(view.findViewById(R.id.threeImage), firstMove, first, second);
+                    board[0][2] = 1;
+                    int win = check(board);
+                    winCheck(win, firstMove, player1.getText().toString(), player2.getText().toString());
+                }
             }
         });
         fourth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                move(view.findViewById(R.id.fourthImage),firstMove,first,second);
-                board[1][0]=1;
-                int win=check(board);
-                winCheck(win,firstMove,player1.getText().toString(),player2.getText().toString());
+                if (fourthImage.getVisibility() != View.VISIBLE) {
+                    move(view.findViewById(R.id.fourthImage), firstMove, first, second);
+                    board[1][0] = 1;
+                    int win = check(board);
+                    winCheck(win, firstMove, player1.getText().toString(), player2.getText().toString());
+                }
             }
         });
         fifth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                move(view.findViewById(R.id.fifthImage),firstMove,first,second);
-                board[1][1]=1;
-                int win=check(board);
-                winCheck(win,firstMove,player1.getText().toString(),player2.getText().toString());
+                if (fifthImage.getVisibility() != View.VISIBLE) {
+                    move(view.findViewById(R.id.fifthImage), firstMove, first, second);
+                    board[1][1] = 1;
+                    int win = check(board);
+                    winCheck(win, firstMove, player1.getText().toString(), player2.getText().toString());
 
+                }
             }
         });
         six.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                move(view.findViewById(R.id.sixImage),firstMove,first,second);
-                board[1][2]=1;
-                int win=check(board);
-                winCheck(win,firstMove,player1.getText().toString(),player2.getText().toString());
+                if (sixImage.getVisibility() != View.VISIBLE) {
+                    move(view.findViewById(R.id.sixImage), firstMove, first, second);
+                    board[1][2] = 1;
+                    int win = check(board);
+                    winCheck(win, firstMove, player1.getText().toString(), player2.getText().toString());
+                }
             }
         });
         seven.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                move(view.findViewById(R.id.sevenImage),firstMove,first,second);
-                board[2][0]=1;
-                int win=check(board);
-                winCheck(win,firstMove,player1.getText().toString(),player2.getText().toString());
+                if (sevenImage.getVisibility() != View.VISIBLE) {
+                    move(view.findViewById(R.id.sevenImage), firstMove, first, second);
+                    board[2][0] = 1;
+                    int win = check(board);
+                    winCheck(win, firstMove, player1.getText().toString(), player2.getText().toString());
+                }
             }
         });
         eight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                move(view.findViewById(R.id.eightImage),firstMove,first,second);
-                board[2][1]=1;
-                int win=check(board);
-                winCheck(win,firstMove,player1.getText().toString(),player2.getText().toString());
+                if (eightImage.getVisibility() != View.VISIBLE) {
+                    move(view.findViewById(R.id.eightImage), firstMove, first, second);
+                    board[2][1] = 1;
+                    int win = check(board);
+                    winCheck(win, firstMove, player1.getText().toString(), player2.getText().toString());
+                }
             }
         });
         nine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                move(view.findViewById(R.id.nineImage),firstMove,first,second);
-                board[2][2]=1;
-                int win=check(board);
-                winCheck(win,firstMove,player1.getText().toString(),player2.getText().toString());
+                if (nineImage.getVisibility() != View.VISIBLE) {
+                    move(view.findViewById(R.id.nineImage), firstMove, first, second);
+                    board[2][2] = 1;
+                    int win = check(board);
+                    winCheck(win, firstMove, player1.getText().toString(), player2.getText().toString());
+                }
             }
         });
     }
@@ -249,18 +271,25 @@ boolean firstMove=true;
             else{
                 name=player2;
             }
-            afterMatchText.setText("Hooray , "+name+" won the game !");
+
+            if(name.length()>6)
+            afterMatchText.setText("Hooray , "+name.substring(0,6)+" won the game !");
+            else
+                afterMatchText.setText("Hooray , "+name+" won the game !");
 
         }
         if(win==0){
             afterMatchText.setText("Game is tie !");
+            restart.setPadding(20,20,20,20);
         }
 
         restart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dialog.dismiss();
                 Intent intent = getIntent();
                 finish();
+                MainActivity.main.finish();
                 startActivity(intent);
             }
         });
@@ -268,6 +297,7 @@ boolean firstMove=true;
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dialog.dismiss();
                 finish();
             }
         });
@@ -279,5 +309,6 @@ boolean firstMove=true;
     public void onBackPressed() {
         startActivity(new Intent(getApplicationContext(),MainActivity.class));
         finish();
+        MainActivity.main.finish();
     }
 }

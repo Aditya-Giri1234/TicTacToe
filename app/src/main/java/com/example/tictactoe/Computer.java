@@ -6,16 +6,13 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Random;
 
 public class Computer extends AppCompatActivity {
@@ -25,7 +22,8 @@ public class Computer extends AppCompatActivity {
     LinearLayout first,second,one,two,three,fourth,fifth,six,seven,eight,nine;
     ImageView oneImage,twoImage,threeImage,fourthImage,fifthImage,sixImage,sevenImage,eightImage,nineImage;
 
-    TextView secondPlayer;
+    TextView firstPlayer,secondPlayer;
+    EditText user;
 
     int gameState[]=new int[]{2,2,2,2,2,2,2,2,2};
 
@@ -43,7 +41,31 @@ public class Computer extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(getResources().getColor(R.color.black));
         }
+
+
+        firstPlayer=findViewById(R.id.firstPlayer);
         secondPlayer=findViewById(R.id.secondPlayer);
+        secondPlayer.setText("Computer");
+        Dialog choose=new Dialog(this);
+        choose.setContentView(R.layout.computer_pop);
+        choose.setCancelable(false);
+        Button submit=choose.findViewById(R.id.computer_pop_button);
+        user=choose.findViewById(R.id.user);
+        choose.show();
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (user.getText().length() == 0) {
+                    user.setError("Enter a name");
+                }
+                    else {
+
+                        firstPlayer.setText(user.getText().toString());
+                        choose.dismiss();
+                    }
+
+            }
+        });
         first= findViewById(R.id.first);
         second=findViewById(R.id.second);
         one=findViewById(R.id.one);
@@ -72,56 +94,74 @@ public class Computer extends AppCompatActivity {
         one.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                move(view.findViewById(R.id.oneImage),0,0);
+                if (oneImage.getVisibility() != View.VISIBLE) {
+                    move(view.findViewById(R.id.oneImage), 0, 0);
+                }
             }
         });
         two.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                move(view.findViewById(R.id.twoImage),0,1);
+                if (twoImage.getVisibility() != View.VISIBLE) {
+                    move(view.findViewById(R.id.twoImage), 0, 1);
+                }
             }
         });
         three.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                move(view.findViewById(R.id.threeImage),0,2);
+                if (threeImage.getVisibility() != View.VISIBLE) {
+                    move(view.findViewById(R.id.threeImage), 0, 2);
+                }
             }
         });
         fourth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                move(view.findViewById(R.id.fourthImage),1,0);
+                if (fourthImage.getVisibility() != View.VISIBLE) {
+                    move(view.findViewById(R.id.fourthImage), 1, 0);
+                }
             }
         });
         fifth.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                move(view.findViewById(R.id.fifthImage),1,1);
+                if (fifthImage.getVisibility() != View.VISIBLE) {
+                    move(view.findViewById(R.id.fifthImage), 1, 1);
+                }
             }
         });
         six.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               move(view.findViewById(R.id.sixImage),1,2);
+                if (six.getVisibility() != View.VISIBLE) {
+                    move(view.findViewById(R.id.sixImage), 1, 2);
+                }
             }
         });
         seven.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                move(view.findViewById(R.id.sevenImage),2,0);
+                if (sevenImage.getVisibility() != View.VISIBLE) {
+                    move(view.findViewById(R.id.sevenImage), 2, 0);
+                }
             }
         });
         eight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               move(view.findViewById(R.id.eightImage),2,1);
+                if (eightImage.getVisibility() != View.VISIBLE) {
+                    move(view.findViewById(R.id.eightImage), 2, 1);
+                }
             }
         });
         nine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                move(view.findViewById(R.id.nineImage),2,2);
+                if (nineImage.getVisibility() != View.VISIBLE) {
+                    move(view.findViewById(R.id.nineImage), 2, 2);
+                }
             }
         });
 
@@ -139,19 +179,18 @@ public class Computer extends AppCompatActivity {
 
 
         //First Time
+        if(space(gameState)!=0) {
+            if (space(gameState) == 8) {
+                first();
+            } else {
+                // now choose best move for computer
 
-        if(space(gameState)==8) {
-           first();
-        }
+                bestMove();
 
-         else {
-            // now choose best move for computer
+                if (space(gameState) <= 5)
+                    winCheck();
 
-            bestMove();
-
-            if(space(gameState)<=5)
-            winCheck();
-
+            }
         }
         
     }
@@ -169,7 +208,6 @@ public class Computer extends AppCompatActivity {
                 }
             }
         }
-        System.out.println(move);
         place(move+1);
         gameState[move]=0;
     }
@@ -227,17 +265,22 @@ public class Computer extends AppCompatActivity {
         TextView afterMatchText=dialog.findViewById(R.id.afterMatchText);
         Button restart=dialog.findViewById(R.id.restart);
         Button exit=dialog.findViewById(R.id.exit);
-        if(win()==1){
+        switch (win()){
+            case 1:
+                if(user.length()>6)
+                    afterMatchText.setText("Hooray , "+user.getText().toString().substring(0,6)+" won the game !");
+                else
+                    afterMatchText.setText("Hooray , "+user.getText()+" won the game !");
+                dialog.show();
+                break;
+            case -1:
+                afterMatchText.setText("Hooray , Computer won the game !");
+                dialog.show();
+                break;
 
-            afterMatchText.setText("Hooray , Human won the game !");
-            dialog.show();
 
         }
 
-        if(win()==-1){
-            afterMatchText.setText("Hooray , Computer won the game !");
-            dialog.show();
-        }
 
         if(space(gameState)==0){
             afterMatchText.setText("Game is tie !");
@@ -247,8 +290,10 @@ public class Computer extends AppCompatActivity {
         restart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dialog.dismiss();
                 Intent intent = getIntent();
                 finish();
+                MainActivity.main.finish();
                 startActivity(intent);
             }
         });
@@ -256,6 +301,7 @@ public class Computer extends AppCompatActivity {
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dialog.dismiss();
                 finish();
             }
         });
@@ -313,9 +359,6 @@ public class Computer extends AppCompatActivity {
 
         place(value+1);
         gameState[value]=0;
-        Toast tost=Toast.makeText(getApplicationContext(),Integer.toString(value),Toast.LENGTH_SHORT);
-        tost.setGravity(Gravity.CENTER,0,0);
-        tost.show();
 
     }
 
@@ -389,6 +432,7 @@ public class Computer extends AppCompatActivity {
     public void onBackPressed() {
         startActivity(new Intent(getApplicationContext(),MainActivity.class));
         finish();
+        MainActivity.main.finish();
     }
 }
 

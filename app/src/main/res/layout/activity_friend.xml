@@ -13,26 +13,26 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
         android:gravity="center"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:padding="30dp">
 
         <LinearLayout
             android:id="@+id/first"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginBottom="20dp"
+            android:layout_weight="1"
             android:background="@drawable/tic_turn"
-            android:orientation="vertical"
-            android:paddingLeft="40dp"
-            android:paddingTop="30dp"
-            android:paddingRight="40dp"
-            android:paddingBottom="30dp">
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="20dp">
 
             <TextView
                 android:id="@+id/firstPlayer"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="start"
                 android:padding="10dp"
                 android:text="One"
                 android:textColor="@color/white"
@@ -40,7 +40,7 @@
 
             <ImageView
                 android:id="@+id/image1"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 app:srcCompat="@drawable/cross" />
@@ -48,21 +48,19 @@
 
         <LinearLayout
             android:id="@+id/second"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@drawable/tictactoe_back"
             android:gravity="center"
-            android:orientation="vertical"
-            android:paddingLeft="40dp"
-            android:paddingTop="30dp"
-            android:paddingRight="40dp"
-            android:paddingBottom="30dp">
+            android:orientation="horizontal"
+            android:padding="20dp">
 
             <TextView
                 android:id="@+id/secondPlayer"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:padding="10dp"
                 android:text="Two"
                 android:textColor="@color/white"
@@ -70,7 +68,7 @@
 
             <ImageView
                 android:id="@+id/image2"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 app:srcCompat="@drawable/zero" />
@@ -116,7 +114,7 @@
                     android:layout_weight="1"
                     android:scaleType="center"
                     android:tag="-1"
-                    android:visibility="gone"
+                    android:visibility="invisible"
                     app:srcCompat="@drawable/cross" />
             </LinearLayout>
 
@@ -139,7 +137,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/tictactoe_back"
                     android:tag="-2"
-                    android:visibility="gone"
+                    android:visibility="invisible"
                     app:srcCompat="@drawable/cross" />
             </LinearLayout>
 
@@ -159,7 +157,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:tag="-3"
-                    android:visibility="gone"
+                    android:visibility="invisible"
                     app:srcCompat="@drawable/zero" />
             </LinearLayout>
         </LinearLayout>
@@ -189,7 +187,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:tag="-4"
-                    android:visibility="gone"
+                    android:visibility="invisible"
                     app:srcCompat="@drawable/cross" />
             </LinearLayout>
 
@@ -212,7 +210,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/tictactoe_back"
                     android:tag="-5"
-                    android:visibility="gone"
+                    android:visibility="invisible"
                     app:srcCompat="@drawable/cross" />
             </LinearLayout>
 
@@ -232,7 +230,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:tag="-6"
-                    android:visibility="gone"
+                    android:visibility="invisible"
                     app:srcCompat="@drawable/zero" />
             </LinearLayout>
         </LinearLayout>
@@ -266,7 +264,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:tag="-7"
-                    android:visibility="gone"
+                    android:visibility="invisible"
                     app:srcCompat="@drawable/cross" />
             </LinearLayout>
 
@@ -289,7 +287,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/tictactoe_back"
                     android:tag="-8"
-                    android:visibility="gone"
+                    android:visibility="invisible"
                     app:srcCompat="@drawable/cross" />
             </LinearLayout>
 
@@ -309,7 +307,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:tag="-9"
-                    android:visibility="gone"
+                    android:visibility="invisible"
                     app:srcCompat="@drawable/zero" />
             </LinearLayout>
         </LinearLayout>

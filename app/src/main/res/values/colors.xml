@@ -10,4 +10,6 @@
 
     <color name="splashBack">#E25A1A</color>
     <color name="friend_pop_back">#15173A</color>
+    <color name="main_back">#212845</color>
+    <color name="yellow">#f8d320</color>
 </resources>
