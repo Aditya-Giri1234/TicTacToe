@@ -180,17 +180,12 @@ public class Computer extends AppCompatActivity {
 
         //First Time
         if(space(gameState)!=0) {
-            if (space(gameState) == 8) {
-                first();
-            } else {
-                // now choose best move for computer
 
                 bestMove();
 
                 if (space(gameState) <= 5)
                     winCheck();
 
-            }
         }
         
     }
@@ -202,12 +197,14 @@ public class Computer extends AppCompatActivity {
                 gameState[i] =0 ;
                 int score = minmax(0,1);
                 gameState[i] = 2;
+                System.out.println("i -> "+i+" , move -> "+move+" , Score -> "+score+" , bestScore -> "+bestScore+" , score>bestScore -> "+(score>bestScore));
                 if(score>bestScore){
                     bestScore = score;
                     move=i;
                 }
             }
         }
+        System.out.println(" move -> "+move);
         place(move+1);
         gameState[move]=0;
     }
@@ -350,31 +347,7 @@ public class Computer extends AppCompatActivity {
 
 
 
-    public void first(){
-        int value=new Random().nextInt(8);
 
-        while(value==position(gameState)){
-            value=new Random().nextInt(8);
-
-        }
-
-        place(value+1);
-        gameState[value]=0;
-
-    }
-
-    public int position(int gameState[]){
-        int pos=-1;
-        for(int i=0;i<9;i++){
-
-                if(gameState[i]==1) {
-                    pos = i;
-                    break;
-                }
-
-        }
-        return pos;
-    }
 
     public int space(int arr[]){
         int sum=0;
