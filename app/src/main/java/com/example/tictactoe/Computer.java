@@ -135,7 +135,7 @@ public class Computer extends AppCompatActivity {
         six.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (six.getVisibility() != View.VISIBLE) {
+                if (sixImage.getVisibility() != View.VISIBLE) {
                     move(view.findViewById(R.id.sixImage), 1, 2);
                 }
             }
