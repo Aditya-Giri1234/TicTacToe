@@ -25,7 +25,7 @@ public class Computer extends AppCompatActivity {
     TextView firstPlayer,secondPlayer;
     EditText user;
 
-    int gameState[]=new int[]{2,2,2,2,2,2,2,2,2};
+    int gameState[]=new int[]{2,2,2,2,2,2,2,2,2}; // 0==computer , 1=human
 
 
     int[][] Winpos = new int[][]{{0,1,2},{3,4,5},{6,7,8},
@@ -95,7 +95,7 @@ public class Computer extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (oneImage.getVisibility() != View.VISIBLE) {
-                    move(view.findViewById(R.id.oneImage), 0, 0);
+                    move(view.findViewById(R.id.oneImage), 0);
                 }
             }
         });
@@ -103,7 +103,7 @@ public class Computer extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (twoImage.getVisibility() != View.VISIBLE) {
-                    move(view.findViewById(R.id.twoImage), 0, 1);
+                    move(view.findViewById(R.id.twoImage),  1);
                 }
             }
         });
@@ -111,7 +111,7 @@ public class Computer extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (threeImage.getVisibility() != View.VISIBLE) {
-                    move(view.findViewById(R.id.threeImage), 0, 2);
+                    move(view.findViewById(R.id.threeImage),  2);
                 }
             }
         });
@@ -119,7 +119,7 @@ public class Computer extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (fourthImage.getVisibility() != View.VISIBLE) {
-                    move(view.findViewById(R.id.fourthImage), 1, 0);
+                    move(view.findViewById(R.id.fourthImage), 3);
                 }
             }
         });
@@ -128,7 +128,7 @@ public class Computer extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (fifthImage.getVisibility() != View.VISIBLE) {
-                    move(view.findViewById(R.id.fifthImage), 1, 1);
+                    move(view.findViewById(R.id.fifthImage), 4);
                 }
             }
         });
@@ -136,7 +136,7 @@ public class Computer extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (sixImage.getVisibility() != View.VISIBLE) {
-                    move(view.findViewById(R.id.sixImage), 1, 2);
+                    move(view.findViewById(R.id.sixImage), 5);
                 }
             }
         });
@@ -144,7 +144,7 @@ public class Computer extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (sevenImage.getVisibility() != View.VISIBLE) {
-                    move(view.findViewById(R.id.sevenImage), 2, 0);
+                    move(view.findViewById(R.id.sevenImage), 6);
                 }
             }
         });
@@ -152,7 +152,7 @@ public class Computer extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (eightImage.getVisibility() != View.VISIBLE) {
-                    move(view.findViewById(R.id.eightImage), 2, 1);
+                    move(view.findViewById(R.id.eightImage), 7);
                 }
             }
         });
@@ -160,7 +160,7 @@ public class Computer extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (nineImage.getVisibility() != View.VISIBLE) {
-                    move(view.findViewById(R.id.nineImage), 2, 2);
+                    move(view.findViewById(R.id.nineImage), 8);
                 }
             }
         });
@@ -168,12 +168,12 @@ public class Computer extends AppCompatActivity {
 
     }
 
-    public  void move(ImageView view,int i,int j)  {
+    public  void move(ImageView view,int index)  {
 
         view.setImageResource(R.drawable.cross);
         view.setVisibility(View.VISIBLE);
 
-        gameState[i*3+j]=1;
+        gameState[index]=1;
         if(space(gameState)<=5)
         winCheck();
 
@@ -220,10 +220,10 @@ public class Computer extends AppCompatActivity {
         if(space(gameState)==0) return 0;
 
 
-        int max=Integer.MIN_VALUE;
-        int min=Integer.MAX_VALUE;
+
 
                 if (player==0) {
+                    int max=Integer.MIN_VALUE;
                     for (int i = 0; i < gameState.length; i++) {
                         if (gameState[i] == 2) {
                             gameState[i] = player;
@@ -235,7 +235,8 @@ public class Computer extends AppCompatActivity {
                     return max;
                 }
                else {
-                  for(int i=0;i<gameState.length;i++) {
+                    int min=Integer.MAX_VALUE;
+                    for(int i=0;i<gameState.length;i++) {
                       if(gameState[i]==2) {
                           gameState[i] = player;
                           int currentScore = minmax(depth + 1, 0);
